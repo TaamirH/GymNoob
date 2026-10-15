@@ -9,12 +9,9 @@ registerSW({
   immediate: true,
   onRegisteredSW(_url, reg) {
     if (!reg) return
-    // Look for a new build whenever the app comes to the foreground, and hourly.
-    const check = () => {
-      if (document.visibilityState === 'visible') void reg.update().catch(() => undefined)
-    }
-    document.addEventListener('visibilitychange', check)
-    window.setInterval(check, 60 * 60 * 1000)
+    // The browser already checks for a new build on every launch.
+    // This only covers an app left open for days.
+    window.setInterval(() => void reg.update().catch(() => undefined), 24 * 60 * 60 * 1000)
   },
 })
 
