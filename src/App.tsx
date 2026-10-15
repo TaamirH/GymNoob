@@ -45,6 +45,12 @@ export default function App() {
     ensureSeed()
       .catch((err) => console.error('seed failed', err))
       .finally(() => setReady(true))
+    // Ask the browser not to evict this origin's storage under pressure.
+    try {
+      void navigator.storage?.persist?.().catch(() => undefined)
+    } catch {
+      /* unsupported */
+    }
   }, [])
 
   useTheme(settings.theme)

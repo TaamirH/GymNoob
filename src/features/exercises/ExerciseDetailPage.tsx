@@ -127,7 +127,7 @@ export default function ExerciseDetailPage() {
             <Stepper value={restSec} step={15} min={15} max={600} unit={t.common.sec} width={56} onChange={(v) => updateExerciseTuning(ex.id, { restSec: v })} />
           </Row>
           <Row label={t.exercises.setsPerSession}>
-            <Stepper value={sets} step={1} min={1} max={6} width={44} onChange={(v) => updateExerciseTuning(ex.id, { sets: v })} />
+            <Stepper value={sets} step={1} min={1} max={6} width={56} onChange={(v) => updateExerciseTuning(ex.id, { sets: v })} />
           </Row>
           <Row label={t.exercises.repRange}>
             <div className="flex items-center gap-1.5">

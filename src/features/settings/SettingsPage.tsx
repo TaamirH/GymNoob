@@ -144,7 +144,7 @@ export default function SettingsPage() {
             <Stepper value={s.defaultIncrementKg} step={2.5} min={0.5} max={50} unit={t.common.kg} format={fmtKg} width={56} onChange={(v) => updateSettings({ defaultIncrementKg: v })} />
           </Row>
           <Row label={t.settings.weeklyTarget}>
-            <Stepper value={s.weeklyTarget} step={1} min={1} max={7} width={44} onChange={(v) => updateSettings({ weeklyTarget: v })} />
+            <Stepper value={s.weeklyTarget} step={1} min={1} max={7} width={56} onChange={(v) => updateSettings({ weeklyTarget: v })} />
           </Row>
           <div className="px-4 py-3 space-y-2">
             <div className="text-sm font-medium">{t.settings.weekStartsOn}</div>

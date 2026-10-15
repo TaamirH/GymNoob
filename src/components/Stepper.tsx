@@ -44,11 +44,13 @@ export function Stepper({
       <button
         type="button"
         onClick={onTap}
-        className={`pressable flex items-baseline justify-center gap-0.5 px-1 ${highlight ? 'text-accent' : 'text-ink'}`}
+        className={`pressable flex items-center justify-center px-1 ${highlight ? 'text-accent' : 'text-ink'}`}
         style={{ minWidth: width }}
       >
-        <span className="num text-lg font-bold leading-none">{value === null ? placeholder : format(value)}</span>
-        {unit && value !== null && <span className="text-[10px] text-muted font-medium">{unit}</span>}
+        <span className="inline-flex items-baseline gap-0.5">
+          <span className="num text-lg font-bold leading-none">{value === null ? placeholder : format(value)}</span>
+          {unit && value !== null && <span className="text-[10px] text-muted font-medium">{unit}</span>}
+        </span>
       </button>
       <button type="button" onClick={inc} disabled={value === null || value >= max} className="pressable w-8 flex items-center justify-center text-muted disabled:opacity-30" aria-label="+">
         <Icon name="plus" size={16} strokeWidth={2.5} />

@@ -56,7 +56,8 @@ export const ExerciseCard = forwardRef<HTMLDivElement, Props>(function ExerciseC
     const s = logged.get(n)
     if (s) return { w: s.weightKg, r: s.reps }
     const prev = sets.filter((x) => x.setNumber < n).sort((a, b) => b.setNumber - a.setNumber)[0]
-    return { w: prev ? prev.weightKg : item.prescribedWeightKg, r: item.prescribedReps[n - 1] ?? item.minReps }
+    const prevDraft = n > 1 ? (drafts[n - 1]?.w ?? null) : null
+    return { w: prev ? prev.weightKg : (prevDraft ?? item.prescribedWeightKg), r: item.prescribedReps[n - 1] ?? item.minReps }
   }
   const draftFor = (n: number): Draft => drafts[n] ?? defaultsFor(n)
   const setDraft = (n: number, patch: Partial<Draft>) => setDrafts((d) => ({ ...d, [n]: { ...draftFor(n), ...patch } }))
