@@ -76,76 +76,78 @@
   --shadow-card: var(--shadow);
 }
 
-/* ---- Base --------------------------------------------------------------- */
-html,
-body,
-#root {
-  height: 100%;
+/* ---- Base (layered so utilities keep winning) --------------------------- */
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    overscroll-behavior-y: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  input,
+  textarea {
+    user-select: text;
+    -webkit-user-select: text;
+    font: inherit;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    touch-action: manipulation;
+  }
 }
 
-html {
-  background: var(--bg);
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-sans);
-  font-feature-settings: 'tnum' 1;
-  overscroll-behavior-y: none;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-input,
-textarea {
-  user-select: text;
-  -webkit-user-select: text;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-button {
-  font: inherit;
-  color: inherit;
-  touch-action: manipulation;
-}
-
-.pb-safe {
+/* ---- Utilities ---------------------------------------------------------- */
+@utility pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-.pt-safe {
+@utility pt-safe {
   padding-top: env(safe-area-inset-top);
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
+@utility no-scrollbar {
   scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-/* Numerals that feel like a scoreboard. */
-.num {
+/* Numerals that align like a scoreboard. */
+@utility num {
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
 
 /* Press feedback for anything tappable. */
-.pressable {
+@utility pressable {
   transition:
     transform 120ms ease,
     opacity 120ms ease,
     background-color 120ms ease;
-}
-.pressable:active {
-  transform: scale(0.97);
+  &:active {
+    transform: scale(0.97);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 @keyframes fade-up {
@@ -158,9 +160,6 @@ button {
     transform: translateY(0);
   }
 }
-.fade-up {
-  animation: fade-up 220ms ease both;
-}
 
 @keyframes slide-up {
   from {
@@ -169,9 +168,6 @@ button {
   to {
     transform: translateY(0);
   }
-}
-.slide-up {
-  animation: slide-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 @keyframes pop {
@@ -185,9 +181,6 @@ button {
     transform: scale(1);
   }
 }
-.pop {
-  animation: pop 260ms ease both;
-}
 
 @keyframes pulse-ring {
   0% {
@@ -197,18 +190,31 @@ button {
     box-shadow: 0 0 0 14px rgba(0, 0, 0, 0);
   }
 }
-.pulse-ring {
-  animation: pulse-ring 1.2s ease-out infinite;
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .fade-up,
-  .slide-up,
-  .pop,
-  .pulse-ring {
+@utility fade-up {
+  animation: fade-up 220ms ease both;
+  @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
-  .pressable {
-    transition: none;
+}
+
+@utility slide-up {
+  animation: slide-up 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@utility pop {
+  animation: pop 260ms ease both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@utility pulse-ring {
+  animation: pulse-ring 1.2s ease-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 }

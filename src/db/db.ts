@@ -63,7 +63,7 @@ export async function ensureSeed(): Promise<void> {
           secondaryMuscles: ex.secondaryMuscles,
           equipment: ex.equipment,
           isAssisted: ex.isAssisted,
-          guideHe: ex.guideHe,
+          ...(existing.guideEdited ? {} : { guideHe: ex.guideHe }),
           mediaUrl: ex.mediaUrl,
           attribution: ex.attribution,
         })

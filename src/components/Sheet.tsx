@@ -49,7 +49,7 @@ export function Sheet({
           <div className="flex items-start gap-2 px-5 pt-3 pb-2 shrink-0">
             <div className="flex-1 min-w-0">
               {title && <div className="font-bold text-xl leading-tight truncate">{title}</div>}
-              {subtitle && <div className="text-sm text-muted truncate">{subtitle}</div>}
+              {subtitle && <div className="text-sm text-muted line-clamp-2 leading-snug">{subtitle}</div>}
             </div>
             <IconButton icon="x" label={t.common.close} onClick={onClose} className="-me-2" />
           </div>

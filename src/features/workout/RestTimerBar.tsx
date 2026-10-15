@@ -45,7 +45,7 @@ export function RestTimerBar({
                   <div className="text-[11px] uppercase tracking-[0.12em] text-muted font-semibold">{t.workout.rest}</div>
                   <div className="num text-3xl font-bold leading-none mt-0.5">{fmtClock(remainingSec)}</div>
                 </div>
-                <Button size="sm" onClick={onAdd} className="num">
+                <Button size="sm" variant="outline" onClick={onAdd} className="num">
                   {t.workout.plus30}
                 </Button>
                 <Button size="sm" variant="primary" icon="skip" iconSize={16} onClick={onSkip}>

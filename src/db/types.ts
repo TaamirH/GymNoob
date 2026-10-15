@@ -59,6 +59,8 @@ export interface Exercise {
   defaultMaxReps: number
   defaultRestSec: number
   guideHe: ExerciseGuide
+  /** set when the user edited the guide; built-in refresh then leaves it alone */
+  guideEdited?: boolean
   mediaUrl?: string
   attribution?: string
   isCustom?: boolean

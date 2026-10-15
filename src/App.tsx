@@ -11,6 +11,7 @@ import TodayPage from '@/features/today/TodayPage'
 import ExercisesPage from '@/features/exercises/ExercisesPage'
 import ExerciseDetailPage from '@/features/exercises/ExerciseDetailPage'
 import HistoryPage from '@/features/history/HistoryPage'
+import WorkoutDetailPage from '@/features/history/WorkoutDetailPage'
 import ProgressPage from '@/features/progress/ProgressPage'
 import SettingsPage from '@/features/settings/SettingsPage'
 import WorkoutPage from '@/features/workout/WorkoutPage'
@@ -64,6 +65,7 @@ export default function App() {
         <Route element={<Shell />}>
           <Route index element={<TodayPage />} />
           <Route path="history" element={<HistoryPage />} />
+          <Route path="history/:id" element={<WorkoutDetailPage />} />
           <Route path="progress" element={<ProgressPage />} />
           <Route path="exercises" element={<ExercisesPage />} />
           <Route path="exercises/:id" element={<ExerciseDetailPage />} />

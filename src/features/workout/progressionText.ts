@@ -23,7 +23,7 @@ export function describeChange(t: Dict, ex: Pick<Exercise, 'isAssisted'>, rx: Pr
     case 'hold':
       return { label: t.summary.hold, reason: t.summary.reasonHold, tone: 'muted' }
     case 'first':
-      return { label: `${fmtKg(rx.weightKg)} ${t.common.kg}`, reason: t.summary.reasonFirst, tone: 'info' }
+      return { label: t.summary.firstLabel, reason: `${t.summary.reasonFirst} · ${fmtKg(rx.weightKg)} ${t.common.kg}`, tone: 'info' }
     default:
       return { label: '—', reason: '', tone: 'muted' }
   }
