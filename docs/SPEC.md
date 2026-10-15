@@ -3,6 +3,17 @@
 Personal workout tracker for a beginner on a machine-based full-body circuit.
 Written 2026-10-15. This is the plan we build from; edit it as decisions change.
 
+## Status (2026-10-15)
+
+Build steps 1–7 below are implemented and verified with a headless-browser click-through
+(two full workouts, a bump, rest timer end, routine editing, custom exercise, export, reset,
+Hebrew and light themes). Beyond the plan, the whole UI is already available in Hebrew via
+Settings, and the seven built-in exercises carry demo GIFs.
+
+Not done: deployment to Cloudflare Pages (needs the owner's GitHub and Cloudflare accounts),
+step 8 (Capacitor wrapper), a full exercise-dataset import, and an estimated-1RM chart (the
+per-exercise estimate is shown as a stat).
+
 ## 1. Decisions
 
 | Area | Decision |

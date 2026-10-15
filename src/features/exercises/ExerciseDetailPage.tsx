@@ -97,7 +97,9 @@ export default function ExerciseDetailPage() {
 
         {ex.mediaUrl && (
           <Card className="overflow-hidden">
-            <img src={ex.mediaUrl} alt={ex.nameEn} className="w-full aspect-square object-cover bg-surface-2" loading="lazy" />
+            <div className="flex justify-center bg-white py-3">
+              <img src={ex.mediaUrl} alt={ex.nameEn} width={180} height={180} className="rounded-xl" loading="lazy" />
+            </div>
             {ex.attribution && <div className="px-4 py-2 text-[11px] text-muted">{ex.attribution}</div>}
           </Card>
         )}

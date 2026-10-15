@@ -11,8 +11,8 @@ export function GuideSheet({ exercise, onClose }: { exercise: Exercise | null; o
         <div className="space-y-4">
           {exercise.isAssisted && <div className="rounded-2xl bg-info-soft text-info text-sm px-4 py-3 font-medium">{t.common.assistedHint}</div>}
           {exercise.mediaUrl && (
-            <div className="rounded-2xl overflow-hidden bg-surface-2">
-              <img src={exercise.mediaUrl} alt={exercise.nameEn} className="w-full aspect-square object-cover" loading="lazy" />
+            <div className="rounded-2xl overflow-hidden bg-white flex justify-center py-3">
+              <img src={exercise.mediaUrl} alt={exercise.nameEn} width={180} height={180} className="rounded-xl" loading="lazy" />
             </div>
           )}
           <GuideView guide={exercise.guideHe} />

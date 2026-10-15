@@ -12,6 +12,7 @@ import { MuscleTag } from '@/components/MuscleTag'
 import { NewExerciseSheet } from './NewExerciseSheet'
 import { addToRoutine, moveInRoutine, removeFromRoutine } from './exerciseService'
 import { fmtKg } from '@/lib/format'
+import { thumbOf } from '@/lib/media'
 import type { Exercise, Prescription } from '@/db/types'
 
 function ExerciseRow({
@@ -36,6 +37,11 @@ function ExerciseRow({
     <Card className="px-3 py-3 flex items-center gap-3">
       {index !== undefined && (
         <div className="num w-8 h-8 rounded-xl bg-surface-2 flex items-center justify-center text-sm font-bold text-muted shrink-0">{index + 1}</div>
+      )}
+      {ex.mediaUrl && !editing && (
+        <div className="w-12 h-12 rounded-xl bg-white overflow-hidden shrink-0">
+          <img src={thumbOf(ex.mediaUrl)} alt="" width={48} height={48} className="w-full h-full object-cover" loading="lazy" />
+        </div>
       )}
       <div className="flex-1 min-w-0">
         <div className="font-semibold leading-tight truncate">{ex.nameEn}</div>

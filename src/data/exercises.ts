@@ -2,6 +2,9 @@ import type { Exercise, Routine } from '@/db/types'
 
 const MEDIA_ATTRIBUTION = '© Gym visual — https://gymvisual.com/'
 
+/** Demo GIFs from the hasaneyldrm/exercises-dataset repo (MIT code; GIFs © Gym visual, attribution required). */
+const media = (id: string) => `https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/videos/${id}.gif`
+
 /**
  * Built-in exercises. Guides are written in Hebrew (the app's form-guide language).
  * Fields the user can tune (increment, rest, rep range) are only applied on first insert;
@@ -10,6 +13,7 @@ const MEDIA_ATTRIBUTION = '© Gym visual — https://gymvisual.com/'
 export const BUILTIN_EXERCISES: Exercise[] = [
   {
     id: 'leg-press',
+    mediaUrl: media('1463-2Qh2J1e'),
     nameEn: 'Leg Press',
     nameHe: 'לחיצת רגליים',
     primaryMuscles: ['quads', 'glutes'],
@@ -49,6 +53,7 @@ export const BUILTIN_EXERCISES: Exercise[] = [
   },
   {
     id: 'leg-curl',
+    mediaUrl: media('0599-Zg3XY7P'),
     nameEn: 'Leg Curl',
     nameHe: 'כפיפת ברכיים',
     primaryMuscles: ['hamstrings'],
@@ -84,6 +89,7 @@ export const BUILTIN_EXERCISES: Exercise[] = [
   },
   {
     id: 'chest-press',
+    mediaUrl: media('0577-T0yTjgW'),
     nameEn: 'Chest Press',
     nameHe: 'לחיצת חזה במכונה',
     primaryMuscles: ['chest'],
@@ -118,6 +124,7 @@ export const BUILTIN_EXERCISES: Exercise[] = [
   },
   {
     id: 'seated-row',
+    mediaUrl: media('1350-7I6LNUG'),
     nameEn: 'Seated Row',
     nameHe: 'חתירה בישיבה',
     primaryMuscles: ['back'],
@@ -153,6 +160,7 @@ export const BUILTIN_EXERCISES: Exercise[] = [
   },
   {
     id: 'shoulder-press',
+    mediaUrl: media('0869-vqsbmL0'),
     nameEn: 'Shoulder Press',
     nameHe: 'לחיצת כתפיים במכונה',
     primaryMuscles: ['shoulders'],
@@ -188,6 +196,7 @@ export const BUILTIN_EXERCISES: Exercise[] = [
   },
   {
     id: 'chin-assist',
+    mediaUrl: media('0572-MaMuGH6'),
     nameEn: 'Chin Assist',
     nameHe: 'מתח בסיוע',
     primaryMuscles: ['back'],
@@ -223,6 +232,7 @@ export const BUILTIN_EXERCISES: Exercise[] = [
   },
   {
     id: 'dip-assist',
+    mediaUrl: media('0019-J60bN17'),
     nameEn: 'Dip Assist',
     nameHe: 'מקבילים בסיוע',
     primaryMuscles: ['triceps', 'chest'],
