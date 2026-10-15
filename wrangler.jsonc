@@ -1,0 +1,11 @@
+{
+  // Cloudflare Workers static-assets deployment (what the Cloudflare dashboard's
+  // Git integration uses). Deploy command: npx wrangler deploy
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gymnoob",
+  "compatibility_date": "2026-10-12",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

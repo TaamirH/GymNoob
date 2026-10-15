@@ -23,13 +23,17 @@ npm run preview    # serve dist/ locally
 npm run icons      # regenerate PNG icons from public/icon.svg
 ```
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare)
 
-1. In Cloudflare, create a Pages project connected to this GitHub repo (private repos are fine).
-2. Build command: `npm run build`. Output directory: `dist`.
-3. Every push to `main` redeploys. `public/_redirects` handles client-side routing.
+Cloudflare's dashboard connects the GitHub repo and deploys it as a Worker that serves static assets (free tier).
 
-Any static host that serves `dist/` over HTTPS works the same way.
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Output directory: `dist`
+
+`wrangler.jsonc` in the repo tells Wrangler to upload `dist/` and to serve `index.html` for unknown paths (single-page routing). Every push to `main` redeploys.
+
+Any static host that serves `dist/` over HTTPS with a single-page fallback works the same way.
 
 ## Install on the phone
 
