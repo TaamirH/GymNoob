@@ -1,8 +1,8 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode, Ref } from 'react'
 
-export function Card({ className = '', children, ...rest }: HTMLAttributes<HTMLDivElement> & { children: ReactNode }) {
+export function Card({ className = '', children, ref, ...rest }: HTMLAttributes<HTMLDivElement> & { children: ReactNode; ref?: Ref<HTMLDivElement> }) {
   return (
-    <div className={`bg-surface rounded-[var(--radius-card)] border border-line/60 ${className}`} {...rest}>
+    <div ref={ref} className={`bg-surface rounded-[var(--radius-card)] border border-line/60 ${className}`} {...rest}>
       {children}
     </div>
   )

@@ -128,6 +128,9 @@ export const en = {
     reasonFirst: 'First session logged',
     backHome: 'Back to Today',
     bodyweightPrompt: 'Log your bodyweight this week?',
+    weightPr: 'New weight record',
+    repsPr: 'New reps record',
+    was: (w: string, r: number) => `was ${w} kg × ${r}`,
   },
   history: {
     title: 'History',

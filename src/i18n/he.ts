@@ -130,6 +130,9 @@ export const he: Dict = {
     reasonFirst: 'אימון ראשון נרשם',
     backHome: 'חזרה להיום',
     bodyweightPrompt: 'לרשום משקל גוף השבוע?',
+    weightPr: 'שיא משקל חדש',
+    repsPr: 'שיא חזרות חדש',
+    was: (w, r) => `היה ${w} ק"ג × ${r}`,
   },
   history: {
     title: 'היסטוריה',

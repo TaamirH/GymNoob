@@ -97,7 +97,8 @@ export async function ensureSeed(): Promise<void> {
             updatedAt: Date.now(),
             source: 'auto',
             lastChange: 'none',
-            reason: '',
+            lastDelta: 0,
+            reasonParams: {},
           })
         }
       }

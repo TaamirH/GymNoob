@@ -2,7 +2,14 @@ export type Effort = 'easy' | 'ok' | 'hard' | 'failed'
 export type SetType = 'working' | 'warmup'
 export type WorkoutStatus = 'active' | 'completed' | 'discarded'
 export type PrescriptionSource = 'auto' | 'manual'
-export type ProgressionChange = 'none' | 'bump' | 'hold' | 'deload'
+export type ProgressionChange = 'none' | 'first' | 'bump' | 'hold' | 'deload'
+
+export interface ProgressionParams {
+  max?: number
+  min?: number
+  sets?: number
+  weight?: number
+}
 
 export type MuscleGroup =
   | 'quads'
@@ -84,7 +91,9 @@ export interface Prescription {
   updatedAt: number
   source: PrescriptionSource
   lastChange: ProgressionChange
-  reason: string
+  /** signed change to the stack weight applied by the last evaluation */
+  lastDelta: number
+  reasonParams: ProgressionParams
 }
 
 export interface Workout {

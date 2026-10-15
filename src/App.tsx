@@ -13,6 +13,9 @@ import ExerciseDetailPage from '@/features/exercises/ExerciseDetailPage'
 import HistoryPage from '@/features/history/HistoryPage'
 import ProgressPage from '@/features/progress/ProgressPage'
 import SettingsPage from '@/features/settings/SettingsPage'
+import WorkoutPage from '@/features/workout/WorkoutPage'
+import SummaryPage from '@/features/workout/SummaryPage'
+import { setSoundEnabled } from '@/lib/sound'
 
 function Shell() {
   return (
@@ -51,6 +54,7 @@ export default function App() {
   }, [settings.language])
 
   useEffect(() => setHapticsEnabled(settings.vibrateEnabled), [settings.vibrateEnabled])
+  useEffect(() => setSoundEnabled(settings.soundEnabled), [settings.soundEnabled])
 
   if (!ready) return <Splash />
 
@@ -65,6 +69,8 @@ export default function App() {
           <Route path="exercises/:id" element={<ExerciseDetailPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
+        <Route path="workout" element={<WorkoutPage />} />
+        <Route path="workout/summary/:id" element={<SummaryPage />} />
       </Routes>
     </I18nProvider>
   )
