@@ -266,17 +266,127 @@ export const BUILTIN_EXERCISES: Exercise[] = [
       cues: ['להרגיש את הטרייספס דוחף, לא את הכתף.', 'אם כואב בכתף: לקצר את הטווח ולהעלות סיוע.'],
     },
   },
+  {
+    id: 'lat-pulldown',
+    mediaUrl: media('0150-eYnzaCm'),
+    nameEn: 'Lat Pulldown',
+    nameHe: 'משיכת פולי עליון',
+    primaryMuscles: ['back'],
+    secondaryMuscles: ['biceps', 'shoulders'],
+    equipment: 'cable',
+    isAssisted: false,
+    incrementKg: 5,
+    defaultMinReps: 10,
+    defaultMaxReps: 15,
+    defaultRestSec: 90,
+    attribution: MEDIA_ATTRIBUTION,
+    guideHe: {
+      setup: [
+        'כוונו את כרית הירכיים כך שהיא לוחצת על הירכיים בישיבה וכפות הרגליים שטוחות על הרצפה. היא מונעת מכם להתרומם עם המשקל.',
+        'אחיזה עליונה, מעט רחבה מהכתפיים. שבו זקופים עם רכינה קלה אחורה, חזה פתוח.',
+        'לפני המשיכה: זרועות ישרות למעלה, כתפיים משוחררות, מתיחה בגב.',
+      ],
+      steps: [
+        'התחילו בהורדת השכמות (כתפיים "לכיסים") ורק אז כופפו את המרפקים.',
+        'משכו את המוט לחלק העליון של החזה. המרפקים יורדים למטה ומעט אחורה.',
+        'עצרו רגע עם השכמות צמודות, ואז חזרו לאט, 2–3 שניות, עד זרועות ישרות ומתיחה מלאה.',
+        'המוט נע בקו ישר מול הפנים, הגו נשאר יציב.',
+      ],
+      mistakes: [
+        'נדנוד הגוף אחורה כדי להזיז משקל. הגו נשאר באותה זווית לאורך כל הסט.',
+        'משיכה מאחורי הראש. מעמיסה על הכתף ולא עובדת יותר על הגב.',
+        'משיכה עם הידיים בלבד, בלי להוריד שכמות.',
+        'טווח חלקי למעלה: לא חוזרים לזרועות ישרות.',
+        'אחיזה רחבה מדי. מקצרת את טווח התנועה ומעמיסה על הכתפיים.',
+      ],
+      cues: ['המרפקים לכיסים, לא הידיים לחזה.', 'הידיים הן ווים. הגב מושך.'],
+    },
+  },
+  {
+    id: 'biceps-curl',
+    mediaUrl: media('0592-b6hQYMb'),
+    nameEn: 'Biceps Curl',
+    nameHe: 'כפיפת מרפקים במכונה',
+    primaryMuscles: ['biceps'],
+    secondaryMuscles: [],
+    equipment: 'machine',
+    isAssisted: false,
+    incrementKg: 5,
+    defaultMinReps: 10,
+    defaultMaxReps: 15,
+    defaultRestSec: 60,
+    attribution: MEDIA_ATTRIBUTION,
+    guideHe: {
+      setup: [
+        'כוונו את גובה המושב כך שבתי השחי נשענים על קצה הכרית והזרוע העליונה שטוחה על הכרית לכל אורכה.',
+        'אחזו בידיות באחיזה תחתונה. המרפקים בקו אחד עם ציר הסיבוב של המכונה.',
+        'גב ישר, החזה על הכרית בלי להישען עליה בכוח.',
+      ],
+      steps: [
+        'כופפו את המרפקים והרימו את הידיות עד כיווץ מלא, בלי להרים את המרפקים מהכרית.',
+        'עצרו רגע למעלה ולחצו את היד הקדמית.',
+        'הורידו לאט, 2–3 שניות, כמעט עד יישור מלא. לא לשחרר את המתח למטה.',
+      ],
+      mistakes: [
+        'מרפקים שמתרוממים מהכרית בחלק העליון. המשקל עובר לכתפיים.',
+        'נעילה למטה עם שחרור המתח, או "קפיצה" מהתחתית.',
+        'פרקי כף יד שמתכופפים אחורה. לשמור אותם ישרים.',
+        'משקל כבד מדי שגורם לגו להתרומם מהמושב.',
+      ],
+      cues: ['הזרוע העליונה דבוקה לכרית, רק האמה זזה.', 'למעלה בשליטה, למטה לאט.'],
+    },
+  },
+  {
+    id: 'ab-crunch',
+    mediaUrl: media('0595-ZnJHhMk'),
+    nameEn: 'Ab Crunch Machine',
+    nameHe: 'כפיפות בטן במכונה',
+    primaryMuscles: ['core'],
+    secondaryMuscles: [],
+    equipment: 'machine',
+    isAssisted: false,
+    incrementKg: 5,
+    defaultMinReps: 10,
+    defaultMaxReps: 15,
+    defaultRestSec: 60,
+    attribution: MEDIA_ATTRIBUTION,
+    guideHe: {
+      setup: [
+        'כוונו את המושב כך שכרית החזה נמצאת על החלק העליון של החזה והידיות בגובה נוח.',
+        'רגליים מאחורי גלגלות הרגליים (אם יש), הגב צמוד למשענת בתחילת התנועה.',
+        'התחילו עם משקל קל. כאן הטכניקה חשובה יותר מהמשקל.',
+      ],
+      steps: [
+        'נשפו וכופפו את הגו קדימה: הצלעות מתקרבות לאגן והגב העליון מתעגל.',
+        'התנועה מגיעה מהבטן. הידיים רק מחזיקות, לא דוחפות.',
+        'עצרו רגע בכיווץ, ואז חזרו לאט, 2–3 שניות, עד שהגב כמעט נוגע במשענת.',
+      ],
+      mistakes: [
+        'דחיפה עם הידיים והכתפיים במקום כיווץ הבטן.',
+        'טווח קצר מדי: לא חוזרים אחורה כמעט עד המשענת.',
+        'משיכת הסנטר לחזה בכוח. המבט קדימה-למטה, הצוואר רגוע.',
+        'משקל כבד מדי שהופך את התרגיל לנדנוד.',
+      ],
+      cues: ['לקרב את הצלעות לאגן.', 'לנשוף בכיווץ, לשאוף בחזרה.'],
+    },
+  },
 ]
+
+/** Recommended order for a fresh install. Existing routines are never changed by this. */
+const DEFAULT_ROUTINE_IDS = ['leg-press', 'leg-curl', 'chest-press', 'seated-row', 'shoulder-press', 'lat-pulldown', 'dip-assist', 'biceps-curl', 'ab-crunch']
 
 export const DEFAULT_ROUTINE: Routine = {
   id: 'full-body',
   name: 'Full Body',
-  items: BUILTIN_EXERCISES.map((ex, i) => ({
-    exerciseId: ex.id,
-    order: i,
-    sets: 2,
-    minReps: ex.defaultMinReps,
-    maxReps: ex.defaultMaxReps,
-    restSec: ex.defaultRestSec,
-  })),
+  items: DEFAULT_ROUTINE_IDS.map((id, i) => {
+    const ex = BUILTIN_EXERCISES.find((e) => e.id === id)!
+    return {
+      exerciseId: ex.id,
+      order: i,
+      sets: 2,
+      minReps: ex.defaultMinReps,
+      maxReps: ex.defaultMaxReps,
+      restSec: ex.defaultRestSec,
+    }
+  }),
 }
