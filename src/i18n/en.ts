@@ -140,8 +140,13 @@ export const en = {
     workouts: (n: number) => `${n} workouts`,
     deleteConfirm: 'Delete this workout and all its sets?',
     editSet: 'Edit set',
+    newSet: 'New set',
     deleteSet: 'Delete set',
     incomplete: 'Unfinished',
+    addExercise: 'Add exercise',
+    pickExercise: 'Add to this workout',
+    noSets: 'No sets yet',
+    allAdded: 'Every exercise is already in this workout.',
   },
   progress: {
     title: 'Progress',

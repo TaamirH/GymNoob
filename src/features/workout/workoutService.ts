@@ -136,6 +136,37 @@ export async function sessionHistory(exerciseId: string, limit = 6): Promise<Ses
   return sessions.slice(0, limit)
 }
 
+/** Recomputes one exercise's prescription from its completed history. Must run inside a transaction. */
+async function evaluateExercise(exerciseId: string, now: number, fallback?: { sets: number; minReps: number; maxReps: number }): Promise<void> {
+  const ex = await db.exercises.get(exerciseId)
+  if (!ex) return
+  const rx = await db.prescriptions.get(exerciseId)
+  const routine = (await db.routines.toArray())[0]
+  const ri = routine?.items.find((i) => i.exerciseId === exerciseId)
+  const current = {
+    weightKg: rx?.weightKg ?? null,
+    sets: ri?.sets ?? fallback?.sets ?? rx?.sets ?? 2,
+    minReps: ri?.minReps ?? fallback?.minReps ?? rx?.minReps ?? ex.defaultMinReps,
+    maxReps: ri?.maxReps ?? fallback?.maxReps ?? rx?.maxReps ?? ex.defaultMaxReps,
+  }
+  const history = await sessionHistory(exerciseId)
+  if (history.length === 0) return
+  const out = nextPrescription(ex, current, history)
+  await db.prescriptions.put({
+    exerciseId,
+    weightKg: out.weightKg,
+    sets: current.sets,
+    minReps: current.minReps,
+    maxReps: current.maxReps,
+    repsPerSet: out.repsPerSet,
+    updatedAt: now,
+    source: 'auto',
+    lastChange: out.change,
+    lastDelta: out.delta,
+    reasonParams: out.params,
+  })
+}
+
 /** Marks the workout completed and re-evaluates every exercise that was logged. */
 export async function finishWorkout(workoutId: string): Promise<void> {
   await db.transaction('rw', [db.workouts, db.workoutItems, db.sets, db.prescriptions, db.exercises, db.routines], async () => {
@@ -145,38 +176,77 @@ export async function finishWorkout(workoutId: string): Promise<void> {
     await db.workouts.update(workoutId, { status: 'completed', finishedAt: now })
 
     const items = await db.workoutItems.where('workoutId').equals(workoutId).toArray()
-    const routine = await db.routines.get(workout.routineId)
-
     for (const item of items) {
-      const ex = await db.exercises.get(item.exerciseId)
-      if (!ex) continue
       const loggedHere = await db.sets.where('workoutItemId').equals(item.id).count()
       if (loggedHere === 0) continue
-
-      const rx = await db.prescriptions.get(item.exerciseId)
-      const ri = routine?.items.find((i) => i.exerciseId === item.exerciseId)
-      const current = {
-        weightKg: rx?.weightKg ?? null,
-        sets: ri?.sets ?? item.sets,
-        minReps: ri?.minReps ?? item.minReps,
-        maxReps: ri?.maxReps ?? item.maxReps,
-      }
-      const history = await sessionHistory(item.exerciseId)
-      const out = nextPrescription(ex, current, history)
-      await db.prescriptions.put({
-        exerciseId: item.exerciseId,
-        weightKg: out.weightKg,
-        sets: current.sets,
-        minReps: current.minReps,
-        maxReps: current.maxReps,
-        repsPerSet: out.repsPerSet,
-        updatedAt: now,
-        source: 'auto',
-        lastChange: out.change,
-        lastDelta: out.delta,
-        reasonParams: out.params,
-      })
+      await evaluateExercise(item.exerciseId, now, { sets: item.sets, minReps: item.minReps, maxReps: item.maxReps })
     }
+  })
+}
+
+/**
+ * After editing a past workout: recompute the exercise's next weight from history.
+ * A manual override is left alone so a history edit never silently undoes it.
+ */
+export async function reevaluateExercise(exerciseId: string): Promise<void> {
+  await db.transaction('rw', [db.workouts, db.workoutItems, db.sets, db.prescriptions, db.exercises, db.routines], async () => {
+    const rx = await db.prescriptions.get(exerciseId)
+    if (rx?.source === 'manual') return
+    await evaluateExercise(exerciseId, Date.now())
+  })
+}
+
+/** Adds an exercise to an existing (usually past) workout. Returns the new item id. */
+export async function addExerciseToWorkout(workoutId: string, exerciseId: string): Promise<string> {
+  return db.transaction('rw', [db.workouts, db.workoutItems, db.exercises, db.routines], async () => {
+    const workout = await db.workouts.get(workoutId)
+    const ex = await db.exercises.get(exerciseId)
+    if (!workout || !ex) throw new Error('not-found')
+    const existing = await db.workoutItems.where('workoutId').equals(workoutId).toArray()
+    const dup = existing.find((i) => i.exerciseId === exerciseId)
+    if (dup) return dup.id
+    const routine = (await db.routines.toArray())[0]
+    const ri = routine?.items.find((i) => i.exerciseId === exerciseId)
+    const sets = ri?.sets ?? 2
+    const minReps = ri?.minReps ?? ex.defaultMinReps
+    const maxReps = ri?.maxReps ?? ex.defaultMaxReps
+    const id = nanoid()
+    await db.workoutItems.add({
+      id,
+      workoutId,
+      exerciseId,
+      order: existing.length ? Math.max(...existing.map((i) => i.order)) + 1 : 0,
+      prescribedWeightKg: null,
+      prescribedReps: Array.from({ length: sets }, () => minReps),
+      sets,
+      minReps,
+      maxReps,
+      restSec: ri?.restSec ?? ex.defaultRestSec,
+    })
+    return id
+  })
+}
+
+/** Appends a set to an item of a past workout, timestamped at the workout's end. */
+export async function appendSet(workoutId: string, item: { id: string; exerciseId: string }, weightKg: number, reps: number, effort: Effort): Promise<WorkoutSet> {
+  return db.transaction('rw', [db.workouts, db.sets], async () => {
+    const workout = await db.workouts.get(workoutId)
+    const existing = await db.sets.where('workoutItemId').equals(item.id).toArray()
+    const setNumber = existing.reduce((m, s) => Math.max(m, s.setNumber), 0) + 1
+    const set: WorkoutSet = {
+      id: nanoid(),
+      workoutId,
+      workoutItemId: item.id,
+      exerciseId: item.exerciseId,
+      setNumber,
+      weightKg,
+      reps,
+      effort,
+      type: 'working',
+      completedAt: workout?.finishedAt ?? Date.now(),
+    }
+    await db.sets.add(set)
+    return set
   })
 }
 

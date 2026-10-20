@@ -142,8 +142,13 @@ export const he: Dict = {
     workouts: (n) => `${n} אימונים`,
     deleteConfirm: 'למחוק את האימון ואת כל הסטים שלו?',
     editSet: 'עריכת סט',
+    newSet: 'סט חדש',
     deleteSet: 'מחיקת סט',
     incomplete: 'לא הושלם',
+    addExercise: 'הוספת תרגיל',
+    pickExercise: 'הוספה לאימון הזה',
+    noSets: 'אין עדיין סטים',
+    allAdded: 'כל התרגילים כבר באימון הזה.',
   },
   progress: {
     title: 'התקדמות',
